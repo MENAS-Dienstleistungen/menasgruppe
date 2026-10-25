@@ -126,50 +126,85 @@
             flex-wrap: wrap;
         }
 
-        /* Custom Globe Language Selector Wrapper */
-        .translate-wrapper {
+        /* Custom Dropdown for Language Menu */
+        .lang-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .lang-toggle-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--pure-white);
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.3s;
         }
 
-        .translate-wrapper i {
+        .lang-toggle-btn:hover {
+            background: var(--accent-gold);
+            color: var(--text-dark);
+            border-color: var(--accent-gold);
+        }
+
+        .lang-toggle-btn i.fa-globe {
             color: var(--accent-gold);
             font-size: 1.1rem;
         }
 
-        #google_translate_element {
-            display: inline-block;
+        .lang-toggle-btn:hover i.fa-globe {
+            color: var(--text-dark);
         }
 
-        .goog-te-combo {
-            background: transparent;
-            color: #fff;
-            border: none;
-            outline: none;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-        .goog-te-combo option {
+        .lang-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 45px;
             background: #002810;
-            color: #fff;
+            border: 1px solid var(--accent-gold);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            overflow: hidden;
+            z-index: 1000;
+            min-width: 150px;
         }
-        .goog-logo-link, .VIpgJd-ZVi9od-ORHb-OEVmcd {
+
+        .lang-menu.show {
+            display: block;
+        }
+
+        .lang-option {
+            padding: 10px 15px;
+            color: #fff;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: block;
+            text-decoration: none;
+            transition: 0.2s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .lang-option:hover {
+            background: var(--accent-gold);
+            color: var(--text-dark);
+        }
+
+        /* Hide Google default banner & elements completely */
+        #google_translate_element {
+            display: none;
+        }
+        .goog-te-banner-frame, .goog-te-gadget {
             display: none !important;
         }
         body {
             top: 0 !important;
-        }
-        #goog-gt-tt, .goog-te-balloon-frame {
-            display: none !important;
-        }
-        .goog-text-highlight {
-            background: none !important;
-            box-shadow: none !important;
         }
 
         .header-contacts {
@@ -538,11 +573,24 @@
             </div>
 
             <div class="header-right">
-                <!-- Custom Globe Icon with Google Translate -->
-                <div class="translate-wrapper">
-                    <i class="fa-solid fa-globe"></i>
-                    <div id="google_translate_element"></div>
+                <!-- Custom Globe Icon Dropdown Menu -->
+                <div class="lang-dropdown-container">
+                    <button class="lang-toggle-btn" onclick="toggleLangMenu(event)">
+                        <i class="fa-solid fa-globe"></i> Sprache <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 4px;"></i>
+                    </button>
+                    <div class="lang-menu" id="langMenu">
+                        <a class="lang-option" onclick="changeLanguage('de')">🇩🇪 Deutsch</a>
+                        <a class="lang-option" onclick="changeLanguage('en')">🇬🇧 English</a>
+                        <a class="lang-option" onclick="changeLanguage('ur')">🇵🇰 اردو</a>
+                        <a class="lang-option" onclick="changeLanguage('tr')">🇹🇷 Türkçe</a>
+                        <a class="lang-option" onclick="changeLanguage('ar')">🇸🇦 العربية</a>
+                        <a class="lang-option" onclick="changeLanguage('fr')">🇫🇷 Français</a>
+                        <a class="lang-option" onclick="changeLanguage('es')">🇪🇸 Español</a>
+                    </div>
                 </div>
+
+                <!-- Hidden Google Translate Element to handle actual translation engine -->
+                <div id="google_translate_element"></div>
 
                 <div class="header-contacts">
                     <a href="https://wa.me/4915168684746" target="_blank" class="header-contact-item">
@@ -765,15 +813,44 @@
         </div>
     </div>
 
-    <!-- Google Translate Script -->
+    <!-- Google Translate Initialization Script -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
                 pageLanguage: 'de', 
-                includedLanguages: 'de,en,ur,ar,tr,fa,fr,es', 
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                includedLanguages: 'de,en,ur,tr,ar,fr,es', 
                 autoDisplay: false
             }, 'google_translate_element');
+        }
+
+        // Toggle custom language menu dropdown
+        function toggleLangMenu(event) {
+            event.stopPropagation();
+            document.getElementById('langMenu').classList.toggle('show');
+        }
+
+        // Trigger Google Translate programmatically
+        function changeLanguage(langCode) {
+            var selectField = document.querySelector('.goog-te-combo');
+            if (selectField) {
+                selectField.value = langCode;
+                selectField.dispatchEvent(new Event('change'));
+            }
+            document.getElementById('langMenu').classList.remove('show');
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.closest('.lang-dropdown-container')) {
+                var menu = document.getElementById('langMenu');
+                if (menu.classList.contains('show')) {
+                    menu.classList.remove('show');
+                }
+            }
+            // Close modals on outside click
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('active');
+            }
         }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
@@ -784,11 +861,6 @@
         }
         function closeModal(id) {
             document.getElementById(id).classList.remove('active');
-        }
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.classList.remove('active');
-            }
         }
     </script>
 </body>
