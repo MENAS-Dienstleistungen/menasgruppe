@@ -82,6 +82,8 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .brand-logo-container {
@@ -117,9 +119,16 @@
             font-weight: 600;
         }
 
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
         .header-contacts {
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
 
         .header-contact-item {
@@ -141,7 +150,40 @@
             color: var(--text-dark);
         }
 
-        @media (max-width: 768px) {
+        /* Google Translate Styling Box */
+        #google_translate_element {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .goog-te-combo {
+            background: transparent;
+            color: #fff;
+            border: none;
+            outline: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .goog-te-combo option {
+            background: #002810;
+            color: #fff;
+        }
+        .goog-logo-link, .VIpgJd-ZVi9od-ORHb-OEVmcd {
+            display: none !important;
+        }
+        body {
+            top: 0 !important;
+        }
+        #goog-gt-tt, .goog-te-balloon-frame {
+            display: none !important;
+        }
+        .goog-text-highlight {
+            background: none !important;
+            box-shadow: none !important;
+        }
+
+        @media (max-width: 992px) {
             .header-contacts {
                 display: none;
             }
@@ -169,7 +211,7 @@
         }
 
         .hero h2 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 800;
             margin-bottom: 15px;
             letter-spacing: -0.5px;
@@ -248,12 +290,6 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--pure-white);
-        }
-
-        .card-title-group p {
-            color: var(--accent-gold);
-            font-size: 0.9rem;
-            font-weight: 600;
         }
 
         .card-description {
@@ -448,27 +484,32 @@
                 </div>
             </div>
 
-            <div class="header-contacts">
-                <a href="tel:+4915168684746" class="header-contact-item">
-                    <i class="fa-solid fa-phone"></i> +49 151 68684746
-                </a>
-                <a href="mailto:menasgruppe@outlook.com" class="header-contact-item">
-                    <i class="fa-solid fa-envelope"></i> menasgruppe@outlook.com
-                </a>
+            <div class="header-right">
+                <!-- Google Translate Dropdown (Defaults to German) -->
+                <div id="google_translate_element"></div>
+
+                <div class="header-contacts">
+                    <a href="tel:+4915168684746" class="header-contact-item">
+                        <i class="fa-solid fa-phone"></i> +49 151 68684746
+                    </a>
+                    <a href="mailto:menasgruppe@outlook.com" class="header-contact-item">
+                        <i class="fa-solid fa-envelope"></i> menasgruppe@outlook.com
+                    </a>
+                </div>
             </div>
         </header>
 
         <!-- Front Hero Section -->
         <section class="hero">
-            <span class="hero-badge"><i class="fa-solid fa-sparkles"></i> Welcome to MENAS Gruppe</span>
-            <h2>Choose Your Destination</h2>
-            <p>Please select one of our professional business divisions below to explore our services or offerings.</p>
+            <span class="hero-badge"><i class="fa-solid fa-sparkles"></i> Willkommen bei MENAS Gruppe</span>
+            <h2>Wählen Sie Ihren Bereich</h2>
+            <p>Bitte wählen Sie unten einen unserer Geschäftsbereiche aus, um mehr über unsere Dienstleistungen zu erfahren.</p>
         </section>
 
         <!-- Front Page 2 Option Grid -->
         <main class="divisions-grid">
 
-            <!-- OPTION 1: MENAS Gruppe / Dienstleistungen -->
+            <!-- OPTION 1: MENAS Dienstleistungen -->
             <div class="card" onclick="openModal()">
                 <div>
                     <div class="card-header">
@@ -477,15 +518,15 @@
                             <i class="fa-solid fa-laptop" style="display:none; color: var(--pure-white); font-size: 1.8rem;"></i>
                         </div>
                         <div class="card-title-group">
-                            <h3>MENAS Gruppe</h3>
+                            <h3>MENAS Dienstleistungen</h3>
                         </div>
                     </div>
                     <p class="card-description">
-                        Professional IT Networks, Structured Cabling, Printer Sharing, Hardware Setup, GDPR-Compliant CCTV Surveillance Systems & All Services.
+                        Professionelle IT-Netzwerkdienste, Videoüberwachung, Gebäudeservice, Möbelmontage & Allgemeine Dienstleistungen.
                     </p>
                 </div>
                 <div class="card-link">
-                    Explore Services &rarr;
+                    Leistungen anzeigen &rarr;
                 </div>
             </div>
 
@@ -502,11 +543,11 @@
                         </div>
                     </div>
                     <p class="card-description">
-                        Authentic flavors, traditional spices, and mouth-watering street food specialties coming soon to delight your taste buds.
+                        Authentische traditionelle Gewürze und Spezialitäten direkt aus den kulinarischen Straßen Karachis.
                     </p>
                 </div>
                 <div class="card-link">
-                    View Restaurant &rarr;
+                    Restaurant Anfragen &rarr;
                 </div>
             </div>
 
@@ -520,7 +561,7 @@
 
     </div>
 
-    <!-- SERVICES POPUP MODAL (Opens when clicking MENAS Gruppe Card) -->
+    <!-- SERVICES POPUP MODAL -->
     <div class="modal-overlay" id="servicesModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -570,8 +611,8 @@
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
                         <ul class="service-list">
-                            <li><i class="fa-solid fa-check"></i> Social-Media-Marketing (Strategie & Management)</li>
-                            <li><i class="fa-solid fa-check"></i> Website-Erstellung (Design & Entwicklung)</li>
+                            <li><i class="fa-solid fa-check"></i> Social-Media-Marketing (Strategie und Management)</li>
+                            <li><i class="fa-solid fa-check"></i> Website-Erstellung (Design und Entwicklung)</li>
                             <li><i class="fa-solid fa-check"></i> Onlinehandel / E-Commerce-Lösungen</li>
                             <li><i class="fa-solid fa-check"></i> Gebäudeservice und Immobilienwartung</li>
                         </ul>
@@ -604,6 +645,14 @@
 
         </div>
     </div>
+
+    <!-- Google Translate Script (Forced Default German) -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'de', includedLanguages: 'de,en,ur,ar,tr,fa,fr,es', autoDisplay: false}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
         function openModal() {
