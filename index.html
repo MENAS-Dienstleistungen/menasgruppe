@@ -126,9 +126,37 @@
             flex-wrap: wrap;
         }
 
+        /* Language Switcher Buttons */
+        .lang-switcher {
+            display: flex;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--accent-gold);
+            color: var(--text-dark);
+        }
+
         .header-contacts {
             display: flex;
-            gap: 15px;
+            gap: 10px;
+            align-items: center;
         }
 
         .header-contact-item {
@@ -148,39 +176,6 @@
         .header-contact-item:hover {
             background: var(--accent-gold);
             color: var(--text-dark);
-        }
-
-        /* Google Translate Styling Box */
-        #google_translate_element {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 5px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .goog-te-combo {
-            background: transparent;
-            color: #fff;
-            border: none;
-            outline: none;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-        .goog-te-combo option {
-            background: #002810;
-            color: #fff;
-        }
-        .goog-logo-link, .VIpgJd-ZVi9od-ORHb-OEVmcd {
-            display: none !important;
-        }
-        body {
-            top: 0 !important;
-        }
-        #goog-gt-tt, .goog-te-balloon-frame {
-            display: none !important;
-        }
-        .goog-text-highlight {
-            background: none !important;
-            box-shadow: none !important;
         }
 
         @media (max-width: 992px) {
@@ -485,15 +480,19 @@
             </div>
 
             <div class="header-right">
-                <!-- Google Translate Dropdown (Defaults to German) -->
-                <div id="google_translate_element"></div>
+                <!-- Manual Language Switcher -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" onclick="setLanguage('de')">DE</button>
+                    <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+                    <button class="lang-btn" onclick="setLanguage('ur')">UR</button>
+                </div>
 
                 <div class="header-contacts">
-                    <a href="tel:+4915168684746" class="header-contact-item">
-                        <i class="fa-solid fa-phone"></i> +49 151 68684746
+                    <a href="https://wa.me/4915168684746" target="_blank" class="header-contact-item">
+                        <i class="fa-brands fa-whatsapp" style="color: #25D366; font-size: 1.1rem;"></i> WhatsApp
                     </a>
-                    <a href="mailto:menasgruppe@outlook.com" class="header-contact-item">
-                        <i class="fa-solid fa-envelope"></i> menasgruppe@outlook.com
+                    <a href="tel:+4915168684746" class="header-contact-item">
+                        <i class="fa-solid fa-phone"></i> Anrufen
                     </a>
                 </div>
             </div>
@@ -501,9 +500,9 @@
 
         <!-- Front Hero Section -->
         <section class="hero">
-            <span class="hero-badge"><i class="fa-solid fa-sparkles"></i> Willkommen bei MENAS Gruppe</span>
-            <h2>Wählen Sie Ihren Bereich</h2>
-            <p>Bitte wählen Sie unten einen unserer Geschäftsbereiche aus, um mehr über unsere Dienstleistungen zu erfahren.</p>
+            <span class="hero-badge" id="t-badge"><i class="fa-solid fa-sparkles"></i> Willkommen bei MENAS Gruppe</span>
+            <h2 id="t-hero-title">Wählen Sie Ihren Bereich</h2>
+            <p id="t-hero-desc">Bitte wählen Sie unten einen unserer Geschäftsbereiche aus, um mehr über unsere Dienstleistungen zu erfahren.</p>
         </section>
 
         <!-- Front Page 2 Option Grid -->
@@ -518,14 +517,14 @@
                             <i class="fa-solid fa-laptop" style="display:none; color: var(--pure-white); font-size: 1.8rem;"></i>
                         </div>
                         <div class="card-title-group">
-                            <h3>MENAS Dienstleistungen</h3>
+                            <h3 id="t-card1-title">MENAS Dienstleistungen</h3>
                         </div>
                     </div>
-                    <p class="card-description">
+                    <p class="card-description" id="t-card1-desc">
                         Professionelle IT-Netzwerkdienste, Videoüberwachung, Gebäudeservice, Möbelmontage & Allgemeine Dienstleistungen.
                     </p>
                 </div>
-                <div class="card-link">
+                <div class="card-link" id="t-card1-link">
                     Leistungen anzeigen &rarr;
                 </div>
             </div>
@@ -539,14 +538,14 @@
                             <i class="fa-solid fa-bowl-food" style="display:none; color: var(--accent-gold); font-size: 1.8rem;"></i>
                         </div>
                         <div class="card-title-group">
-                            <h3>Karachi Street Food</h3>
+                            <h3 id="t-card2-title">Karachi Street Food</h3>
                         </div>
                     </div>
-                    <p class="card-description">
+                    <p class="card-description" id="t-card2-desc">
                         Authentische traditionelle Gewürze und Spezialitäten direkt aus den kulinarischen Straßen Karachis.
                     </p>
                 </div>
-                <div class="card-link">
+                <div class="card-link" id="t-card2-link">
                     Restaurant Anfragen &rarr;
                 </div>
             </div>
@@ -555,8 +554,10 @@
 
         <!-- Footer -->
         <footer>
-            <p>&copy; 2026 <strong>MENAS Gruppe</strong>. Alle Rechte vorbehalten.</p>
-            <p style="font-size: 0.8rem; margin-top: 4px;">Danziger Straße 21, 31737 Rinteln | E-Mail: menasgruppe@outlook.com | Tel: +49 151 68684746</p>
+            <p id="t-footer">&copy; 2026 <strong>MENAS Gruppe</strong>. Alle Rechte vorbehalten.</p>
+            <p style="font-size: 0.8rem; margin-top: 4px;">
+                Danziger Straße 21, 31737 Rinteln | E-Mail: menasgruppe@outlook.com | Tel: +49 151 68684746
+            </p>
         </footer>
 
     </div>
@@ -570,21 +571,21 @@
                 <div style="display: flex; align-items: center; gap: 15px;">
                     <i class="fa-solid fa-briefcase" style="font-size: 2rem; color: var(--accent-gold);"></i>
                     <div>
-                        <h2 style="font-size: 1.8rem;">MENAS Dienstleistungen</h2>
-                        <p style="color: var(--accent-gold); font-weight: 600;">Professionelle Dienstleistungen</p>
+                        <h2 style="font-size: 1.8rem;" id="t-modal-title">MENAS Dienstleistungen</h2>
+                        <p style="color: var(--accent-gold); font-weight: 600;" id="t-modal-subtitle">Professionelle Dienstleistungen</p>
                     </div>
                 </div>
-                <p>Ihr zuverlässiger Partner für IT-Netzwerkdienste, Videoüberwachung, Geschäftsunterstützung und Gebäudeservices in Deutschland.</p>
+                <p id="t-modal-desc">Ihr zuverlässiger Partner für IT-Netzwerkdienste, Videoüberwachung, Geschäftsunterstützung und Gebäudeservices in Deutschland.</p>
             </div>
 
             <div class="services-grid-popup">
 
                 <!-- IT-Netzwerkdienste -->
                 <div class="service-category">
-                    <div class="category-title">
+                    <div class="category-title" id="t-cat1-title">
                         <i class="fa-solid fa-server"></i> IT-Netzwerkdienste
                     </div>
-                    <ul class="service-list">
+                    <ul class="service-list" id="t-list1">
                         <li><i class="fa-solid fa-check"></i> Netzwerkdesign und -planung</li>
                         <li><i class="fa-solid fa-check"></i> Hardwareinstallation und -konfiguration</li>
                         <li><i class="fa-solid fa-check"></i> Verkabelung und Infrastruktur</li>
@@ -595,10 +596,10 @@
 
                 <!-- Videoüberwachung -->
                 <div class="service-category">
-                    <div class="category-title">
+                    <div class="category-title" id="t-cat2-title">
                         <i class="fa-solid fa-video"></i> Videoüberwachung
                     </div>
-                    <ul class="service-list">
+                    <ul class="service-list" id="t-list2">
                         <li><i class="fa-solid fa-check"></i> IP-Kameras und Videoüberwachung</li>
                         <li><i class="fa-solid fa-check"></i> DSGVO-konforme Einrichtung</li>
                     </ul>
@@ -606,17 +607,17 @@
 
                 <!-- Geschäftsunterstützung & Allgemeine Dienstleistungen -->
                 <div class="service-category full-width">
-                    <div class="category-title">
+                    <div class="category-title" id="t-cat3-title">
                         <i class="fa-solid fa-toolbox"></i> Geschäftsunterstützung & Allgemeine Dienstleistungen
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
-                        <ul class="service-list">
+                        <ul class="service-list" id="t-list3">
                             <li><i class="fa-solid fa-check"></i> Social-Media-Marketing (Strategie und Management)</li>
                             <li><i class="fa-solid fa-check"></i> Website-Erstellung (Design und Entwicklung)</li>
                             <li><i class="fa-solid fa-check"></i> Onlinehandel / E-Commerce-Lösungen</li>
                             <li><i class="fa-solid fa-check"></i> Gebäudeservice und Immobilienwartung</li>
                         </ul>
-                        <ul class="service-list">
+                        <ul class="service-list" id="t-list4">
                             <li><i class="fa-solid fa-check"></i> Möbelmontage und -aufbau</li>
                             <li><i class="fa-solid fa-check"></i> Umzugshilfe und Unterstützung</li>
                             <li><i class="fa-solid fa-check"></i> Gewerbliche und private Gebäudereinigung</li>
@@ -628,7 +629,7 @@
 
             <!-- Contact inside Modal -->
             <div class="contact-box">
-                <h4><i class="fa-solid fa-location-dot"></i> Kontakt & Standort</h4>
+                <h4 id="t-contact-title"><i class="fa-solid fa-location-dot"></i> Kontakt & Standort</h4>
                 <div class="contact-detail-item">
                     <i class="fa-solid fa-map-pin" style="color: var(--accent-gold);"></i>
                     <span>Danziger Straße 21, 31737 Rinteln, Germany</span>
@@ -646,15 +647,181 @@
         </div>
     </div>
 
-    <!-- Google Translate Script (Forced Default German) -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'de', includedLanguages: 'de,en,ur,ar,tr,fa,fr,es', autoDisplay: false}, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
     <script>
+        // Language Dictionary
+        const translations = {
+            de: {
+                badge: "Willkommen bei MENAS Gruppe",
+                heroTitle: "Wählen Sie Ihren Bereich",
+                heroDesc: "Bitte wählen Sie unten einen unserer Geschäftsbereiche aus, um mehr über unsere Dienstleistungen zu erfahren.",
+                card1Title: "MENAS Dienstleistungen",
+                card1Desc: "Professionelle IT-Netzwerkdienste, Videoüberwachung, Gebäudeservice, Möbelmontage & Allgemeine Dienstleistungen.",
+                card1Link: "Leistungen anzeigen →",
+                card2Title: "Karachi Street Food",
+                card2Desc: "Authentische traditionelle Gewürze und Spezialitäten direkt aus den kulinarischen Straßen Karachis.",
+                card2Link: "Restaurant Anfragen →",
+                footer: "&copy; 2026 <strong>MENAS Gruppe</strong>. Alle Rechte vorbehalten.",
+                modalTitle: "MENAS Dienstleistungen",
+                modalSub: "Professionelle Dienstleistungen",
+                modalDesc: "Ihr zuverlässiger Partner für IT-Netzwerkdienste, Videoüberwachung, Geschäftsunterstützung und Gebäudeservices in Deutschland.",
+                cat1: "IT-Netzwerkdienste",
+                cat2: "Videoüberwachung",
+                cat3: "Geschäftsunterstützung & Allgemeine Dienstleistungen",
+                contactTitle: "Kontakt & Standort",
+                list1: [
+                    "Netzwerkdesign und -planung",
+                    "Hardwareinstallation und -konfiguration",
+                    "Verkabelung und Infrastruktur",
+                    "Netzwerksicherheit",
+                    "Fehlerbehebung und Wartung"
+                ],
+                list2: [
+                    "IP-Kameras und Videoüberwachung",
+                    "DSGVO-konforme Einrichtung"
+                ],
+                list3: [
+                    "Social-Media-Marketing (Strategie und Management)",
+                    "Website-Erstellung (Design und Entwicklung)",
+                    "Onlinehandel / E-Commerce-Lösungen",
+                    "Gebäudeservice und Immobilienwartung"
+                ],
+                list4: [
+                    "Möbelmontage und -aufbau",
+                    "Umzugshilfe und Unterstützung",
+                    "Gewerbliche und private Gebäudereinigung"
+                ]
+            },
+            en: {
+                badge: "Welcome to MENAS Group",
+                heroTitle: "Choose Your Destination",
+                heroDesc: "Please select one of our business divisions below to explore our services or offerings.",
+                card1Title: "MENAS Services",
+                card1Desc: "Professional IT Network Services, CCTV Surveillance, Building Services, Furniture Assembly & General Services.",
+                card1Link: "Explore Services →",
+                card2Title: "Karachi Street Food",
+                card2Desc: "Authentic traditional spices and specialties straight from the culinary streets of Karachi.",
+                card2Link: "View Restaurant →",
+                footer: "&copy; 2026 <strong>MENAS Group</strong>. All rights reserved.",
+                modalTitle: "MENAS Services",
+                modalSub: "Professional Services",
+                modalDesc: "Your reliable partner for IT network services, video surveillance, business support, and building services in Germany.",
+                cat1: "IT Network Services",
+                cat2: "CCTV Surveillance",
+                cat3: "Business Support & General Services",
+                contactTitle: "Contact & Location",
+                list1: [
+                    "Network design and planning",
+                    "Hardware installation and configuration",
+                    "Cabling and infrastructure",
+                    "Network security",
+                    "Troubleshooting and maintenance"
+                ],
+                list2: [
+                    "IP cameras and video surveillance",
+                    "GDPR-compliant setup"
+                ],
+                list3: [
+                    "Social media marketing (Strategy & Management)",
+                    "Website creation (Design & Development)",
+                    "Online retail / E-commerce solutions",
+                    "Building service and property maintenance"
+                ],
+                list4: [
+                    "Furniture assembly and setup",
+                    "Moving assistance and support",
+                    "Commercial and private building cleaning"
+                ]
+            },
+            ur: {
+                badge: "میناس گروپ میں خوش آمدید",
+                heroTitle: "اپنا شعبہ منتخب کریں",
+                heroDict: "براہ کرم ہماری خدمات کو دیکھنے کے لیے نیچے دیے گئے کسی ایک شعبے کا انتخاب کریں۔",
+                card1Title: "میناس سروسز",
+                card1Desc: "پیشہ ورانہ آئی ٹی نیٹ ورک سروسز، سی سی ٹی وی نگرانی، بلڈنگ سروسز، فرنیچر اسمبلی اور دیگر خدمات۔",
+                card1Link: "خدمات دیکھیں ←",
+                card2Title: "کراچی اسٹریٹ فوڈ",
+                card2Desc: "کراچی کی روایتی اور ذائقہ دار غذائیں اور مصالحہ جات۔",
+                card2Link: "ریسٹورنٹ سے رابطہ کریں ←",
+                footer: "&copy; 2026 <strong>میناس گروپ</strong>۔ تمام حقوق محفوظ ہیں۔",
+                modalTitle: "میناس سروسز",
+                modalSub: "پیشہ ورانہ خدمات",
+                modalDesc: "جرمنی میں آئی ٹی نیٹ ورکس، سی سی ٹی وی، اور دیگر کاروباری خدمات کے لیے آپ کا قابل اعتماد ساتھی۔",
+                cat1: "آئی ٹی نیٹ ورک سروسز",
+                cat2: "ویڈیو نگرانی (سی سی ٹی وی)",
+                cat3: "کاروباری معاونت اور عمومی خدمات",
+                contactTitle: "رابطہ اور مقام",
+                list1: [
+                    "نیٹ ورک ڈیزائن اور منصوبہ بندی",
+                    "ہارڈ ویئر کی تنصیب اور کنفیگریشن",
+                    "کیبلنگ اور انفراسٹرکچر",
+                    "نیٹ ورک سیکیورٹی",
+                    "خرابیوں کا ازالہ اور دیکھ بھال"
+                ],
+                list2: [
+                    "آئی پی کیمرے اور ویڈیو نگرانی",
+                    "ضابطہ اخلاق (GDPR) کے مطابق سیٹ اپ"
+                ],
+                list3: [
+                    "سوشل میڈیا مارکیٹنگ (حکمت عملی اور انتظام)",
+                    "ویب سائٹ کی تیاری (ڈیزائن اور ترقی)",
+                    "آن لائن تجارت / ای کامرس حل",
+                    "بلڈنگ سروس اور پراپرٹی کی دیکھ بھال"
+                ],
+                list4: [
+                    "فرنیچر کی اسمبلی اور سیٹ اپ",
+                    "منتقلی میں مدد اور تعاون",
+                    "تجارتی اور نجی عمارت کی صفائی"
+                ]
+            }
+        };
+
+        function setLanguage(lang) {
+            // Update active button style
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const t = translations[lang];
+            
+            document.getElementById('t-badge').innerHTML = `<i class="fa-solid fa-sparkles"></i> ${t.badge}`;
+            document.getElementById('t-hero-title').innerText = t.heroTitle;
+            document.getElementById('t-hero-desc').innerText = t.heroDesc || t.heroDict;
+            
+            document.getElementById('t-card1-title').innerText = t.card1Title;
+            document.getElementById('t-card1-desc').innerText = t.card1Desc;
+            document.getElementById('t-card1-link').innerHTML = t.card1Link;
+
+            document.getElementById('t-card2-title').innerText = t.card2Title;
+            document.getElementById('t-card2-desc').innerText = t.card2Desc;
+            document.getElementById('t-card2-link').innerHTML = t.card2Link;
+
+            document.getElementById('t-footer').innerHTML = t.footer;
+
+            document.getElementById('t-modal-title').innerText = t.modalTitle;
+            document.getElementById('t-modal-subtitle').innerText = t.modalSub;
+            document.getElementById('t-modal-desc').innerText = t.modalDesc;
+
+            document.getElementById('t-cat1-title').innerHTML = `<i class="fa-solid fa-server"></i> ${t.cat1}`;
+            document.getElementById('t-cat2-title').innerHTML = `<i class="fa-solid fa-video"></i> ${t.cat2}`;
+            document.getElementById('t-cat3-title').innerHTML = `<i class="fa-solid fa-toolbox"></i> ${t.cat3}`;
+            document.getElementById('t-contact-title').innerHTML = `<i class="fa-solid fa-location-dot"></i> ${t.contactTitle}`;
+
+            // Update lists
+            updateList('t-list1', t.list1);
+            updateList('t-list2', t.list2);
+            updateList('t-list3', t.list3);
+            updateList('t-list4', t.list4);
+        }
+
+        function updateList(elementId, items) {
+            const ul = document.getElementById(elementId);
+            ul.innerHTML = '';
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fa-solid fa-check"></i> ${item}`;
+                ul.appendChild(li);
+            });
+        }
+
         function openModal() {
             document.getElementById('servicesModal').classList.add('active');
         }
