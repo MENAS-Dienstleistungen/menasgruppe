@@ -126,13 +126,26 @@
             flex-wrap: wrap;
         }
 
-        /* Google Translate Styling Box */
-        #google_translate_element {
+        /* Custom Globe Language Selector Wrapper */
+        .translate-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             background: rgba(255, 255, 255, 0.1);
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
+        .translate-wrapper i {
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+        }
+
+        #google_translate_element {
+            display: inline-block;
+        }
+
         .goog-te-combo {
             background: transparent;
             color: #fff;
@@ -525,8 +538,11 @@
             </div>
 
             <div class="header-right">
-                <!-- Google Translate Dropdown Widget -->
-                <div id="google_translate_element"></div>
+                <!-- Custom Globe Icon with Google Translate -->
+                <div class="translate-wrapper">
+                    <i class="fa-solid fa-globe"></i>
+                    <div id="google_translate_element"></div>
+                </div>
 
                 <div class="header-contacts">
                     <a href="https://wa.me/4915168684746" target="_blank" class="header-contact-item">
